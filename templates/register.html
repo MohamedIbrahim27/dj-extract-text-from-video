@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body style="  background-image: url({% static '627a690a1203d_Groupe2575.jpg' %});">
+    <div class="m1">
+        <span class="m1-m m2"></span>
+        <span class="m1-m m3"></span>
+    </div>
+    <div class="main">
+        <form class="form" method="POST">
+            {% csrf_token %}
+            <input name="username" placeholder="username" type="text">
+            <input name="email" placeholder="email" type="email">
+            <input name="password" placeholder="password" type="password">
+            <input name="passwordconfigration" placeholder="re password" type="password">
+            <button type="submit">register</button>
+        </form>
+        <a class="sign" href="{% url 'login' %}" style="width: 101px;
+        text-decoration: none;
+        align-items: center;
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom: 16px;">login</a>
+    </div>
+</body>
+
+</html>

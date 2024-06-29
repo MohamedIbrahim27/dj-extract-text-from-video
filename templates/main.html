@@ -1,0 +1,97 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body style="  background-image: url({% static '627a690a1203d_Groupe2575.jpg' %});">
+    <div class="main">
+        <form class="form" method="POST" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            <label for="fileInput">Choose a file:</label>
+            <input class="file" placeholder="upload file" type="file" name="vid" accept=".mp4, .mp3">
+            <h2 style="    text-align: center;margin:0;">Choose the language :</h2>
+            <select id="language" name="language" style="height: 50px;
+                text-align: center;
+                outline: none;
+                background: #76ffff;
+                font-size: 23px;
+                padding: 5px;">
+                <option value="ar">Arabic</option>
+                <option value="en">English</option>
+                <option value="chi_sim">chinese</option>
+            </select>
+            <button id="extract-btn" type="button">upload</button>
+        </form>
+    </div>
+    <div class="main" style="transform: translateY(100%); top: 23%; position: relative;">
+        <div>
+            <p class="copy-text contai-div" id="extracted-text" style="font-size: 30px;
+    font-weight: 800;"></p>
+            <button id="copy" class="copy but" style="cursor: pointer;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                outline: none;
+                border: none;
+                margin-bottom: 11px;
+                font-size: 30px;
+                padding: 10px;
+                border-radius: 15px;
+                width: 140px;
+                text-transform: capitalize;
+                background-color: aqua;">copy</button>
+        </div>
+    </div>
+    <script>
+        var extractBtn = document.getElementById('extract-btn');
+        var uploadForm = document.getElementById('upload-form');
+
+        extractBtn.addEventListener("click", function(event) {
+            event.preventDefault();
+            var formData = new FormData(uploadForm);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{% url 'extract' %}", true);
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        document.getElementById('extracted-text').textContent = response.text;
+                    } else {
+                        console.error('Error:', xhr.statusText);
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+
+        var copyButtons = document.querySelectorAll('.copy');
+        copyButtons.forEach(function(copyButton) {
+            copyButton.addEventListener("click", function() {
+                var copyText = copyButton.previousElementSibling;
+                var trimmedText = copyText.textContent.trim();
+                var tempTextarea = document.createElement('textarea');
+                tempTextarea.value = trimmedText;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                tempTextarea.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                document.body.removeChild(tempTextarea);
+                copyButton.textContent = "Copied!";
+                setTimeout(function() {
+                    copyButton.textContent = "Copy";
+                }, 800);
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+</html>

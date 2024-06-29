@@ -1,0 +1,133 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:root {
+    --f1-color: #2196f3;
+    --f2-color: #1787e0;
+    --f1-color: #2196f3;
+    --f1-color-alt: #1787e0;
+    --main-transition: 0.3s;
+    --section-background: #ececec;
+    --one-color: #f0f8ff;
+    --two-color:#00daa2;
+    --four-color:#6610f2;
+    --five-color:#1787e0;
+    --six-color:#cf4955;
+    --sevin-color:#ffffff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-size: cover;
+    height: 100vh;
+}
+
+
+.main{
+    backdrop-filter: blur(45px);
+    background-color: rgba(16, 50, 242, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    border-radius: 25px;
+    margin: 0 auto;
+    transform: translateY(50%);
+    -webkit-transform: translateY(50%);
+    -moz-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    -o-transform: translateY(50%);
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+}
+
+
+.main form {
+    display: grid;
+    gap: 19px 0;
+    padding: 50px;
+}
+
+
+.main form input {
+    height: 35px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(0 37 247 / 5%);
+    border: none;
+    border: 3px solid #fff;
+    width: 300px;
+    font-size: 20px;
+    padding: 24px;
+    text-transform: capitalize;
+}
+.main form input:focus {
+    outline: none;
+
+}
+.main form button{
+    text-transform: capitalize;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 11px;
+    border: none;
+    background: #00b6ff;
+    color: aliceblue;
+}
+
+
+.main form .file {
+    height: 35px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    width: 300px;
+    font-size: 18px;
+    padding: 21px;
+    padding-bottom: 40px;
+    text-transform: capitalize;
+    border: 2px solid #002bff;
+}
+
+
+.main form label{
+    font-size: 19px;
+    text-transform: capitalize;
+    font-family: monospace;
+}
+.m1{
+    position: relative;
+}
+.m1-m{
+    height: 200px;
+    width: 200px;
+    
+    position: absolute;
+    z-index: -5;
+    border-radius: 50%;
+
+
+}
+.m2{
+    right: 52%;
+    transform: translateY(108%);
+    background-color: #00b6ff;
+}
+
+.m3{
+    right: 38%;
+    transform: translateY(215%);
+    background-color: #cf4955;
+    -webkit-transform: translateY(215%);
+    -moz-transform: translateY(215%);
+    -ms-transform: translateY(215%);
+    -o-transform: translateY(215%);
+}

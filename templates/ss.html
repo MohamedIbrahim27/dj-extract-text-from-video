@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body style="background-image: url({% static '627a690a1203d_Groupe2575.jpg' %});">
+    <div class="main">
+        <form class="form" method="POST" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            <label for="fileInput">Choose a file:</label>
+            <input class="file" placeholder="upload file" type="file" name="img" accept=".png ,.jpg">
+            <button id="extract-btn" type="button" style="cursor: pointer;">Extract Text</button>
+        </form>
+    </div>
+
+    <div class="main" style="transform: translateY(100%); top: 23%; position: relative;">
+        <div>
+            <p class="copy-text contai-div" id="extracted-text"></p>
+            <button id="copy" class="copy but" style="cursor: pointer;">copy</button>
+        </div>
+    </div>
+    <script>
+        var extractBtn = document.getElementById('extract-btn');
+        var uploadForm = document.getElementById('upload-form');
+
+        extractBtn.addEventListener("click", function(event) {
+            event.preventDefault();  
+            var formData = new FormData(uploadForm);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{% url 'extract' %}", true);
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        document.getElementById('extracted-text').textContent = response.text;
+                    } else {
+                        console.error('Error:', xhr.statusText);
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+
+        var copyButtons = document.querySelectorAll('.copy');
+        copyButtons.forEach(function(copyButton) {
+            copyButton.addEventListener("click", function() {
+                var copyText = copyButton.previousElementSibling;
+                var trimmedText = copyText.textContent.trim();
+                var tempTextarea = document.createElement('textarea');
+                tempTextarea.value = trimmedText;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                tempTextarea.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                document.body.removeChild(tempTextarea);
+                copyButton.textContent = "Copied!";
+                setTimeout(function() {
+                    copyButton.textContent = "Copy";
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>

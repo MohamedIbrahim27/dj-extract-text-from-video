@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body style="  background-image: url({% static '627a690a1203d_Groupe2575.jpg' %});">
+    <div class="main">
+        <form class="form" method="POST">
+            {% csrf_token %}
+            <input style="text-transform: lowercase !important;" placeholder="Username" name="username" type="username">
+            <input style="text-transform: lowercase !important;" placeholder="password" name="password" type="password">
+            <button type="submit">login</button>
+        </form>
+        <a class="sign" href="{% url 'register' %}" style="width: 101px;
+        text-decoration: none;
+        align-items: center;
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom: 16px;">signup</a>
+    </div>
+</body>
+
+</html>
